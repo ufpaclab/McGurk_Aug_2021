@@ -9,10 +9,12 @@ function GetSessionID() {
   lock.waitLock(30000)
   
   var scriptProperties = PropertiesService.getScriptProperties()
-  var currentID = ReadOrCreateProperty_(scriptProperties, 'sessionId', '0')
-  var newID = parseInt(currentID) + 1
-  scriptProperties.setProperty('sessionId', newID.toString())
-  
+  var newID
+  do {
+    newID = Math.floor(Math.random() * 1000000).toString()
+  } while (scriptProperties.getProperty(newID) != null)
+  scriptProperties.setProperty(newID, true)
+    
   lock.releaseLock()
   
   return newID
