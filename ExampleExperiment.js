@@ -38,7 +38,7 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
     // declare the block.
     var trial = {
       type:'external-html',
-      url: "https://victoria0527.github.io/jsPsychSheet/experiment/external_page.html",
+      url: "resources/Consent.html",
       cont_btn: "consent-button"
       //check_fn: check_consent
     };
