@@ -4,7 +4,7 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
     function RunExperiment(session) {
         // generate a random subject ID with 15 characters
 	var subject_id = jsPsych.randomization.randomID(6);
- 	const SONA_URL = `https://ufl.sona-systems.com/?survey_code=${141}`
+ 	const SONA_URL = `https://ufl.sona-systems.com/webstudy_credit.aspx?experiment_id=141&credit_token=bf40955791c84273b997a045a754768f&survey_code=${survey_code}`
 	// record the condition assignment in the jsPsych data
 	// this adds a property called 'subject' and a property called 'condition' to every trial
 	jsPsych.data.addProperties({
