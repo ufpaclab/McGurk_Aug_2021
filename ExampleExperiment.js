@@ -333,7 +333,7 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
     
     var goodbye = {
 		type: "html-keyboard-response",
-		stimulus: "Congratulations, the experiment is now over. Please do not close your window until it says that the data has finished uploading on the next screen."
+		stimulus: "Congratulations, the experiment is now over. Please do not close your window until it says that the data has finished uploading on the next screen, and check SONA when you are done!  If you DIDN'T receive credit after pushing the right arrow, please contact us at victoriacardenas@ufl.edu."
 	};
 	timeline.push(goodbye);
 	
