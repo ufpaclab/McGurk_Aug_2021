@@ -148,7 +148,7 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 					{
 							type: 'webgazer',
 							params: {
-									targets: ['#jspsych-video-button-response-stimulus']
+									targets: ['.jspsych-content-wrapper']
 							}
 					}
 				],
@@ -212,7 +212,7 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 					{
 							type: 'webgazer',
 							params: {
-									targets: ['#jspsych-video-button-response-stimulus']
+									targets: ['.jspsych-content-wrapper']
 							}
 					}
 				],
@@ -277,7 +277,7 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 					{
 							type: 'webgazer',
 							params: {
-									targets: ['#jspsych-video-button-response-stimulus']
+									targets: ['.jspsych-content-wrapper']
 							}
 					}
 				],
@@ -342,7 +342,7 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 					{
 							type: 'webgazer',
 							params: {
-									targets: ['#jspsych-video-button-response-stimulus']
+									targets: ['.jspsych-content-wrapper']
 							}
 					}
 				],
