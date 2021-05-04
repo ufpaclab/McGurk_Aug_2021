@@ -42,7 +42,7 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
       cont_btn: "consent-button"
       //check_fn: check_consent
     };
-    //timeline.push(trial);
+    timeline.push(trial);
   
   	var instructions = {
 		type: 'image-keyboard-response',
