@@ -42,7 +42,7 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
       cont_btn: "consent-button"
       //check_fn: check_consent
     };
-    timeline.push(trial);
+    //timeline.push(trial);
   
   	var instructions = {
 		type: 'image-keyboard-response',
@@ -51,6 +51,32 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 	};
 	timeline.push(instructions);
     
+	var cameraInit = {
+		type: 'webgazer-init-camera',
+		instructions: `<p>The <b>ONLY</b> webcam data collected is the point on the screen you are looking at. No images or recordings will ever leave your computer.</p>
+		<p>Position your head so that the webcam has a good view of your eyes.</p>
+		<p>Use the video in the upper-left corner as a guide. Center your face in the box and look directly towards the camera.</p>
+		<p>It is important that you try and keep your head reasonably still throughout the experiment, so please take a moment to adjust your setup as needed.</p>
+		<p>When your face is centered in the box and the box turns green, you can click to continue.</p>`
+	};
+	timeline.push(cameraInit);
+
+	var cameraCalibrateInstructions = {
+		type: 'html-keyboard-response',
+		stimulus:`
+				<p>The following event will calibrate our eyetracking. Please focus on dots as they appear, and then left-click each one with your mouse.</p>
+				<p>Press any key to begin.</p>
+		`
+	}
+	timeline.push(cameraCalibrateInstructions);
+
+	var cameraCalibrate = {
+		type: 'webgazer-calibrate',
+		calibration_points: [[25,50], [50,50], [75,50], [50,25], [50,75]],
+		calibration_mode: 'click'
+	}
+	timeline.push(cameraCalibrate);
+
     var briefing = {
       type: "html-keyboard-response",
       stimulus: "Before we begin, we would like to ask you a few questions.<br><br>" +
@@ -79,14 +105,14 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
    var pre_if_trial = {
      timeline: [{
       type: 'video-button-response',
-      sources: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryTaVisualGa.mp4'],
+      stimulus: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryTaVisualGa.mp4'],
       width: 800,
       prompt: 'Please plug in headphones/turn on your speakers, and adjust the volume to a comfortable level. Feel free to replay this video as you adjust the volume, or press continue.',
       choices: ['Repeat','Continue']
      }],
      
     loop_function: function(data){
-      if(data.values()[0].button_pressed == 0){
+      if(data.values()[0].response == 0){
         return true;
       } else {
             return false;
@@ -112,17 +138,24 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 		timeline: [
 			{
 				type: 'video-button-response',
-				sources: jsPsych.timelineVariable('video'),
+				stimulus: jsPsych.timelineVariable('video'),
 				width: 800,
 				choices: [],
 				data: jsPsych.timelineVariable('video'), /* Store the video name */
 				trial_ends_after_video: true,
-				prompt: '<p></p>'
-				
+				prompt: '<p></p>',
+				extensions: [
+					{
+							type: 'webgazer',
+							params: {
+									targets: ['#jspsych-video-button-response-stimulus']
+							}
+					}
+				],
 			},
 			{
 				type: 'video-button-response',
-				sources: [],
+				stimulus: [],
 				width: 800,
 				choices: jsPsych.timelineVariable('syllables'),
 				data: jsPsych.timelineVariable('syllables'), /* Store the answer choices on that trial */
@@ -155,7 +188,7 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 			
 		],
 		randomize_order: true,
-    	repetitions: 1
+		repetitions: 1
 	}
 	timeline.push(mcGurkProcedure1);
     
@@ -169,17 +202,25 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 		timeline: [
 			{
 				type: 'video-button-response',
-				sources: jsPsych.timelineVariable('video'),
+				stimulus: jsPsych.timelineVariable('video'),
 				width: 800,
 				choices: [],
 				data: jsPsych.timelineVariable('video'), /* Store the video name */
 				trial_ends_after_video: true,
-				prompt: '<p></p>'
+				prompt: '<p></p>',
+				extensions: [
+					{
+							type: 'webgazer',
+							params: {
+									targets: ['#jspsych-video-button-response-stimulus']
+							}
+					}
+				],
 				
 			},
 			{
 				type: 'video-button-response',
-				sources: [],
+				stimulus: [],
 				width: 800,
 				choices: jsPsych.timelineVariable('syllables'),
 				data: jsPsych.timelineVariable('syllables'), /* Store the answer choices on that trial */
@@ -226,17 +267,25 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 		timeline: [
 			{
 				type: 'video-button-response',
-				sources: jsPsych.timelineVariable('video'),
+				stimulus: jsPsych.timelineVariable('video'),
 				width: 800,
 				choices: [],
 				data: jsPsych.timelineVariable('video'), /* Store the video name */
 				trial_ends_after_video: true,
-				prompt: '<p></p>'
+				prompt: '<p></p>',
+				extensions: [
+					{
+							type: 'webgazer',
+							params: {
+									targets: ['#jspsych-video-button-response-stimulus']
+							}
+					}
+				],
 				
 			},
 			{
 				type: 'video-button-response',
-				sources: [],
+				stimulus: [],
 				width: 800,
 				choices: jsPsych.timelineVariable('syllables'),
 				data: jsPsych.timelineVariable('syllables'), /* Store the answer choices on that trial */
@@ -283,17 +332,25 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 		timeline: [
 			{
 				type: 'video-button-response',
-				sources: jsPsych.timelineVariable('video'),
+				stimulus: jsPsych.timelineVariable('video'),
 				width: 800,
 				choices: [],
 				data: jsPsych.timelineVariable('video'), /* Store the video name */
 				trial_ends_after_video: true,
-				prompt: '<p></p>'
+				prompt: '<p></p>',
+				extensions: [
+					{
+							type: 'webgazer',
+							params: {
+									targets: ['#jspsych-video-button-response-stimulus']
+							}
+					}
+				],
 				
 			},
 			{
 				type: 'video-button-response',
-				sources: [],
+				stimulus: [],
 				width: 800,
 				choices: jsPsych.timelineVariable('syllables'),
 				data: jsPsych.timelineVariable('syllables'), /* Store the answer choices on that trial */
@@ -329,8 +386,23 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
     	repetitions: 5
 	}
 	timeline.push(mcGurkProcedure4);
-    
-    
+     
+	var cameraValidationInstructions = {
+		type: 'html-keyboard-response',
+		stimulus:`
+				<p>The following event will test the accuracy of our eye tracking. Please focus on the black dots as they appear.</p>
+				<p>Press any key to begin.</p>
+		`
+	}
+	timeline.push(cameraValidationInstructions);
+	
+	var cameraValidation = {
+		type: 'webgazer-validate',
+		validation_points: [[-200,-200], [-200,200], [200,-200], [200,200]],
+		validation_point_coordinates: 'center-offset-pixels',
+	}
+	timeline.push(cameraValidation);
+
     var goodbye = {
 		type: "html-keyboard-response",
 		stimulus: "Congratulations, the experiment is now over. Please do not close your window until it says that the data has finished uploading on the next screen, and check SONA when you are done!  If you DIDN'T receive credit after pushing the right arrow, please contact us at victoriacardenas@ufl.edu."
@@ -340,10 +412,18 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 
 	/* start the experiment */
 	jsPsych.init({
-  		timeline: timeline,
-  		show_progress_bar: true,
-  		on_trial_finish: session.insert,
-		on_finish: function() { window.top.location.href = SONA_URL }
+		timeline: timeline,
+		show_progress_bar: true,
+		on_trial_finish: session.insert,
+		on_finish: function() { window.top.location.href = SONA_URL },
+		extensions: [
+			{
+					type: 'webgazer', 
+					params: {
+							sampling_interval: 100,
+					}
+			}
+		]
 	});
     }
 }
