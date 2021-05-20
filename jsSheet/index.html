@@ -4,7 +4,9 @@
         <title>McGurk</title>
         
         <!-- Repo -->
-        <base id="base-url" href="https://victoria0527.github.io/jsPsych-Sheets-Integration-Template/" target="_blank">
+        <!--base id="base-url" href="https://victoria0527.github.io/jsPsych-Sheets-Integration-Template/" target="_blank"-->
+        <base id="base-url" href="../" target="_blank">
+
 
         <!-- jsPsych -->
         <script src="jspsych/jspsych.js"></script>
@@ -35,7 +37,7 @@
         <script src="ExampleExperiment.js"></script>
 
         <script>
-            ExampleExperiment(jsSheet, jsPsych, <?= survey_code ?>)
+            ExampleExperiment(jsSheet, jsPsych, 1)//<?= survey_code ?>)
         </script>
     </head>
     <body>

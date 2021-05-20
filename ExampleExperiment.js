@@ -393,7 +393,7 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 	jsPsych.init({
 		timeline: [
 			welcome,
-			//trial,
+			trial,
 			instructions,
 			cameraInit,
 			briefing,
