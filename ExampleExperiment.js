@@ -10,16 +10,12 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 	jsPsych.data.addProperties({
   		subject: subject_id,
 	});
-	    
-	/* create timeline */
-	var timeline = [];
 
 	/* define welcome message trial */	
 	var welcome = {
   		type: "html-keyboard-response",
   		stimulus: "Welcome to the experiment. Press any key to begin."
 	};
-	timeline.push(welcome);
 	   
     // sample function that might be used to check if a subject has given
     // consent to participate.
@@ -42,14 +38,12 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
       cont_btn: "consent-button"
       //check_fn: check_consent
     };
-    timeline.push(trial);
   
   	var instructions = {
 		type: 'image-keyboard-response',
         stimulus: ['https://victoria0527.github.io/jsPsychSheet/experiment/armsLength.png'],
 		prompt: "<p> </p><p>Please sit roughly an arm’s length away from the screen as seen in the image. Please maintain eye contact with the screen while each video is being presented. Press any key to continue.</p>"
 	};
-	timeline.push(instructions);
     
 	var cameraInit = {
 		type: 'webgazer-init-camera',
@@ -59,7 +53,6 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 		<p>It is important that you try and keep your head reasonably still throughout the experiment, so please take a moment to adjust your setup as needed.</p>
 		<p>When your face is centered in the box and the box turns green, you can click to continue.</p>`
 	};
-	timeline.push(cameraInit);
 
 	var cameraCalibrateInstructions = {
 		type: 'html-keyboard-response',
@@ -68,21 +61,32 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 				<p>Press any key to begin.</p>
 		`
 	}
-	timeline.push(cameraCalibrateInstructions);
 
 	var cameraCalibrate = {
 		type: 'webgazer-calibrate',
 		calibration_points: [[25,50], [50,50], [75,50], [50,25], [50,75]],
 		calibration_mode: 'click'
 	}
-	timeline.push(cameraCalibrate);
+
+	var cameraValidationInstructions = {
+		type: 'html-keyboard-response',
+		stimulus:`
+				<p>The following event will test the accuracy of our eye tracking. Please focus on the black dots as they appear.</p>
+				<p>Press any key to begin.</p>
+		`
+	}
+	
+	var cameraValidation = {
+		type: 'webgazer-validate',
+		validation_points: [[-200,-200], [-200,200], [200,-200], [200,200]],
+		validation_point_coordinates: 'center-offset-pixels',
+	}
 
     var briefing = {
       type: "html-keyboard-response",
       stimulus: "Before we begin, we would like to ask you a few questions.<br><br>" +
       "Press any key to continue."
     };
-    timeline.push(briefing);
 
     var sex = {
       type: 'survey-multi-choice',
@@ -91,7 +95,6 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
         name: 'sex', options: ['Female', 'Male', 'Prefer not to respond'], required:true}
       ],
     };
-    timeline.push(sex);
 
     var age = {
       type: 'survey-text',
@@ -99,8 +102,6 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
         {prompt: "How old are you?", name: 'Age'}
       ],
     };
-    timeline.push(age);
-
     
    var pre_if_trial = {
      timeline: [{
@@ -119,13 +120,11 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
        }
      }
    };
-      timeline.push(pre_if_trial);
 
 	var directions = {
   		type: "html-keyboard-response",
   		stimulus: "You will now be shown test videos to get you used to the experimental procedures. Press any key to continue."
 	};
-	timeline.push(directions);
     
     /* Present a randomized order of all of the videos/trials you wish to show */
     /* Make sure the answer choices are contingent on the video */
@@ -172,7 +171,8 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 					return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
 					},
 				step: 1,
-				prompt: "<p>Rate confidence from 0 (no confidence) to 100 (fully confident)</p>"
+				prompt: "<p>Rate confidence from 0 (no confidence) to 100 (fully confident)</p>",
+				require_movement: true
 			}
 		],
 		timeline_variables: [
@@ -190,13 +190,11 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 		randomize_order: true,
 		repetitions: 1
 	}
-	timeline.push(mcGurkProcedure1);
     
     var ending = {
 		type: "html-keyboard-response",
 		stimulus: "Great job on the pretrials! Please get ready for the real experiment to begin. The experiment will take just under 30 minutes. You will be given a break between each segment. Press any key to continue."
 	};
-	timeline.push(ending);
     
 	var mcGurkProcedure2 = {
 		timeline: [
@@ -237,7 +235,8 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 					return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
 					},
 				step: 1,
-				prompt: "<p>Rate confidence from 0 (no confidence) to 100 (fully confident)</p>"
+				prompt: "<p>Rate confidence from 0 (no confidence) to 100 (fully confident)</p>",
+				require_movement: true
 			}
 		],
 		timeline_variables: [
@@ -255,13 +254,11 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 		randomize_order: true,
     	repetitions: 5
 	}
-	timeline.push(mcGurkProcedure2);
     
     var rest = {
 		type: "html-keyboard-response",
 		stimulus: "You will now have a short break to rest your eyes, use the restroom, etc. There is no time limit. When you are ready, press any key to continue."
 	};
-	timeline.push(rest);    
     
 	var mcGurkProcedure3 = {
 		timeline: [
@@ -302,7 +299,8 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 					return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
 					},
 				step: 1,
-				prompt: "<p>Rate confidence from 0 (no confidence) to 100 (fully confident)</p>"
+				prompt: "<p>Rate confidence from 0 (no confidence) to 100 (fully confident)</p>",
+				require_movement: true
 			}
 		],
 		timeline_variables: [
@@ -320,13 +318,11 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 		randomize_order: true,
     	repetitions: 5
 	}
-	timeline.push(mcGurkProcedure3);    
     
     var rest2 = {
 		type: "html-keyboard-response",
 		stimulus: "You will now have a short break to rest your eyes, use the restroom, etc. There is no time limit. When you are ready, press any key to continue."
 	};
-	timeline.push(rest2); 
     
 	var mcGurkProcedure4 = {
 		timeline: [
@@ -367,7 +363,8 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 					return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
 					},
 				step: 1,
-				prompt: "<p>Rate confidence from 0 (no confidence) to 100 (fully confident)</p>"
+				prompt: "<p>Rate confidence from 0 (no confidence) to 100 (fully confident)</p>",
+				require_movement: true
 			}
 		],
 		timeline_variables: [
@@ -385,34 +382,37 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 		randomize_order: true,
     	repetitions: 5
 	}
-	timeline.push(mcGurkProcedure4);
-     
-	var cameraValidationInstructions = {
-		type: 'html-keyboard-response',
-		stimulus:`
-				<p>The following event will test the accuracy of our eye tracking. Please focus on the black dots as they appear.</p>
-				<p>Press any key to begin.</p>
-		`
-	}
-	timeline.push(cameraValidationInstructions);
-	
-	var cameraValidation = {
-		type: 'webgazer-validate',
-		validation_points: [[-200,-200], [-200,200], [200,-200], [200,200]],
-		validation_point_coordinates: 'center-offset-pixels',
-	}
-	timeline.push(cameraValidation);
 
     var goodbye = {
 		type: "html-keyboard-response",
 		stimulus: "Congratulations, the experiment is now over. Please do not close your window until it says that the data has finished uploading on the next screen, and check SONA when you are done!  If you DIDN'T receive credit after pushing the right arrow, please contact us at victoriacardenas@ufl.edu."
 	};
-	timeline.push(goodbye);
 	
 
 	/* start the experiment */
 	jsPsych.init({
-		timeline: timeline,
+		timeline: [
+			welcome,
+			//trial,
+			instructions,
+			cameraInit,
+			briefing,
+			sex,
+			age,
+			pre_if_trial,
+			directions,
+			mcGurkProcedure1,
+			ending,
+			cameraCalibrateInstructions, cameraCalibrate, cameraValidationInstructions, cameraValidation,
+			mcGurkProcedure2,
+			rest,
+			cameraCalibrateInstructions, cameraCalibrate, cameraValidationInstructions, cameraValidation,
+			mcGurkProcedure3,
+			rest2,
+			cameraCalibrateInstructions, cameraCalibrate, cameraValidationInstructions, cameraValidation,
+			mcGurkProcedure4,
+			goodbye,
+		],
 		show_progress_bar: true,
 		on_trial_finish: session.insert,
 		on_finish: function() { window.top.location.href = SONA_URL },
