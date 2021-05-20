@@ -103,14 +103,17 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
         name: 'sex', options: ['Female', 'Male', 'Prefer not to respond'], required:true}
       ],
     };
-
-    var age = {
-      type: 'survey-text',
-      questions: [
-        {prompt: "How old are you?", name: 'Age'}
-      ],
-    };
     
+	var age = {
+		type: 'survey-text',
+		questions: [{
+			name: 'age',
+			prompt: 'What is your age (e.g. 20, 45, 63)?',
+			required: true,
+			columns: 3
+		}]
+	}
+
    var pre_if_trial = {
      timeline: [{
       type: 'video-button-response',
