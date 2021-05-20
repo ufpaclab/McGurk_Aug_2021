@@ -45,6 +45,14 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 		prompt: "<p> </p><p>Please sit roughly an arm’s length away from the screen as seen in the image. Please maintain eye contact with the screen while each video is being presented. Press any key to continue.</p>"
 	};
     
+	var cameraWarning = {
+		type: 'html-keyboard-response',
+		stimulus: '<p>There experiment will now try to access your camera. Please give it permissions to do so.</p>' +
+				'<p>Remember, no data other than the location you are looking will be saved.</p>' +
+				'<p>Please be patient because the camera may take a moment to start.</p>' +
+				'<p>Press any key to continue.</p>'
+	};
+
 	var cameraInit = {
 		type: 'webgazer-init-camera',
 		instructions: `<p>The <b>ONLY</b> webcam data collected is the point on the screen you are looking at. No images or recordings will ever leave your computer.</p>
@@ -395,6 +403,7 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 			welcome,
 			trial,
 			instructions,
+			cameraWarning,
 			cameraInit,
 			briefing,
 			sex,
@@ -411,7 +420,7 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 			rest2,
 			cameraCalibrateInstructions, cameraCalibrate, cameraValidationInstructions, cameraValidation,
 			mcGurkProcedure4,
-			goodbye,
+			goodbye
 		],
 		show_progress_bar: true,
 		on_trial_finish: session.insert,
