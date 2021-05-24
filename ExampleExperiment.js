@@ -399,6 +399,12 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 		stimulus: "Congratulations, the experiment is now over. Please do not close your window until it says that the data has finished uploading on the next screen, and check SONA when you are done!  If you DIDN'T receive credit after pushing the right arrow, please contact us at victoriacardenas@ufl.edu."
 	};
 	
+	let chinrest = {
+		type: "virtual-chinrest",
+		blindspot_reps: 3,
+		resize_units: "none",
+		pixels_per_unit: 50,
+	};
 
 	/* start the experiment */
 	jsPsych.init({
@@ -415,12 +421,15 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
 			directions,
 			mcGurkProcedure1,
 			ending,
+			chinrest,
 			cameraCalibrateInstructions, cameraCalibrate, cameraValidationInstructions, cameraValidation,
 			mcGurkProcedure2,
 			rest,
+			chinrest,
 			cameraCalibrateInstructions, cameraCalibrate, cameraValidationInstructions, cameraValidation,
 			mcGurkProcedure3,
 			rest2,
+			chinrest,
 			cameraCalibrateInstructions, cameraCalibrate, cameraValidationInstructions, cameraValidation,
 			mcGurkProcedure4,
 			goodbye
