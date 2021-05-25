@@ -37,7 +37,7 @@
         <script src="ExampleExperiment.js"></script>
 
         <script>
-            ExampleExperiment(jsSheet, jsPsych, <?= survey_code ?>)
+            ExampleExperiment(jsSheet, jsPsych, {PROLIFIC_PID: <?= PROLIFIC_PID ?>, STUDY_ID: <?= STUDY_ID ?>, SESSION_ID: <?= SESSION_ID ?>});
         </script>
     </head>
     <body>

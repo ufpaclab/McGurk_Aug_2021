@@ -1,4 +1,5 @@
-function ExampleExperiment(jsSheetHandle, jsPsychHandle, survey_code) {
+function ExampleExperiment(jsSheetHandle, jsPsychHandle, codes) {
+    console.log(codes);
     jsSheetHandle.CreateSession(RunExperiment)
 
     function RunExperiment(session) {
