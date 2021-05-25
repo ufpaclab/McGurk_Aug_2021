@@ -1,11 +1,9 @@
 function ExampleExperiment(jsSheetHandle, jsPsychHandle, codes) {
-    console.log(codes);
     jsSheetHandle.CreateSession(RunExperiment)
 
     function RunExperiment(session) {
         // generate a random subject ID with 15 characters
 	var subject_id = jsPsych.randomization.randomID(6);
- 	const SONA_URL = `https://ufl.sona-systems.com/webstudy_credit.aspx?experiment_id=141&credit_token=bf40955791c84273b997a045a754768f&survey_code=${survey_code}`
 	// record the condition assignment in the jsPsych data
 	// this adds a property called 'subject' and a property called 'condition' to every trial
 	jsPsych.data.addProperties({
@@ -437,13 +435,15 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, codes) {
 		],
 		show_progress_bar: true,
 		on_trial_finish: session.insert,
-		on_finish: function() { window.top.location.href = SONA_URL },
+		on_finish: function() {
+			window.top.location.href = 'https://www.prolific.co/' 
+		},
 		extensions: [
 			{
-					type: 'webgazer', 
-					params: {
-							sampling_interval: 100,
-					}
+				type: 'webgazer', 
+				params: {
+					sampling_interval: 100,
+				}
 			}
 		]
 	});
