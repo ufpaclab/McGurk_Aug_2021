@@ -1,5 +1,20 @@
-function ExampleExperiment(jsSheetHandle, jsPsychHandle, codes) {
-    jsSheetHandle.CreateSession(RunExperiment)
+function ExampleExperiment(jsPsychHandle, codes) {
+	const MCGURK_VARIABLES = [
+		{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Pa','Ga','Ma'], 1) },
+		{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Ga','Da','Ma'], 1) },
+		{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryDaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Ga','Da'], 1) },
+		{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualTa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Na','La'], 1) },
+		{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Pa','Ga','Ba'], 1) },
+		{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryNaVisualDa.mp4'], syllables: jsPsych.randomization.repeat(['Na','Da','Ka','Ma'], 1) },
+		{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualPa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Ta','Ga','Ba'], 1) },
+		{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualNa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Na','Ka','Ta'], 1) },
+		{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryTaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ta','Ga','Ka','Da'], 1) },
+	]
+
+	const WEBGAZER_TARGET_CSS_ID = '#jspsych-video-button-response-stimulus';
+
+	const sessionBuilder = new SessionBuilder();
+	sessionBuilder.createSession(RunExperiment);
 
     function RunExperiment(session) {
         // generate a random subject ID with 15 characters
@@ -15,27 +30,12 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, codes) {
   		type: "html-keyboard-response",
   		stimulus: "Welcome to the experiment. Press any key to begin."
 	};
-	   
-    // sample function that might be used to check if a subject has given
-    // consent to participate.
-    var check_consent = function(elem) {
-      if (document.getElementById('consent_checkbox').checked) {
-        return true;
-      }
-      else {
-        alert("If you wish to participate, you must check the box next to the statement 'I agree to participate in this study.'");
-        return false;
-      }
-      return false;
-    };
-
 
     // declare the block.
     var trial = {
       type:'external-html',
       url: "resources/Consent.html",
       cont_btn: "consent-button"
-      //check_fn: check_consent
     };
   
   	var instructions = {
@@ -43,51 +43,43 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, codes) {
         stimulus: ['https://victoria0527.github.io/jsPsychSheet/experiment/armsLength.png'],
 		prompt: "<p> </p><p>Please sit roughly an arm’s length away from the screen as seen in the image. Please maintain eye contact with the screen while each video is being presented. Press any key to continue.</p>"
 	};
-    
-	var cameraWarning = {
-		type: 'html-keyboard-response',
-		stimulus: '<p>There experiment will now try to access your camera. Please give it permissions to do so.</p>' +
+
+	const cameraInit = {
+		timeline: [
+			{
+				type: 'html-keyboard-response',
+				stimulus: '<p>There experiment will now try to access your camera. Please give it permissions to do so.</p>' +
 				'<p>Remember, no data other than the location you are looking will be saved.</p>' +
 				'<p>Please be patient because the camera may take a moment to start.</p>' +
 				'<p>Press any key to continue.</p>'
+			},
+			{
+				type: 'webgazer-init-camera',
+				instructions: '<p>The <b>ONLY</b> webcam data collected is the point on the screen you are looking at. No images or recordings will ever leave your computer.</p>' +
+				'<p>Position your head so that the webcam has a good view of your eyes.</p>' +
+				'<p>Use the video in the upper-left corner as a guide. Center your face in the box and look directly towards the camera.</p>' +
+				'<p>It is important that you try and keep your head reasonably still throughout the experiment, so please take a moment to adjust your setup as needed.</p>' +
+				'<p>When your face is centered in the box and the box turns green, you can click to continue.</p>'
+			}
+		]
 	};
 
-	var cameraInit = {
-		type: 'webgazer-init-camera',
-		instructions: `<p>The <b>ONLY</b> webcam data collected is the point on the screen you are looking at. No images or recordings will ever leave your computer.</p>
-		<p>Position your head so that the webcam has a good view of your eyes.</p>
-		<p>Use the video in the upper-left corner as a guide. Center your face in the box and look directly towards the camera.</p>
-		<p>It is important that you try and keep your head reasonably still throughout the experiment, so please take a moment to adjust your setup as needed.</p>
-		<p>When your face is centered in the box and the box turns green, you can click to continue.</p>`
+	const calibrationSession = {
+		timeline: [
+			{
+				type: 'html-keyboard-response',
+				stimulus: '<p>The following event will calibrate our eyetracking. Please focus on dots as they appear, and then left-click each one with your mouse.</p>' +
+				'<p>Press any key to begin.</p>'
+			},
+			{ type: 'webgazer-calibrate' },
+			{
+				type: 'html-keyboard-response',
+				stimulus: '<p>The following event will test the accuracy of our eye tracking. Please focus on the black dots as they appear.</p>' +
+				'<p>Press any key to begin.</p>'
+			},
+			{ type: 'webgazer-validate' }
+		]
 	};
-
-	var cameraCalibrateInstructions = {
-		type: 'html-keyboard-response',
-		stimulus:`
-				<p>The following event will calibrate our eyetracking. Please focus on dots as they appear, and then left-click each one with your mouse.</p>
-				<p>Press any key to begin.</p>
-		`
-	}
-
-	var cameraCalibrate = {
-		type: 'webgazer-calibrate',
-		calibration_points: [[25,50], [50,50], [75,50], [50,25], [50,75]],
-		calibration_mode: 'click'
-	}
-
-	var cameraValidationInstructions = {
-		type: 'html-keyboard-response',
-		stimulus:`
-				<p>The following event will test the accuracy of our eye tracking. Please focus on the black dots as they appear.</p>
-				<p>Press any key to begin.</p>
-		`
-	}
-	
-	var cameraValidation = {
-		type: 'webgazer-validate',
-		validation_points: [[-200,-200], [-200,200], [200,-200], [200,200]],
-		validation_point_coordinates: 'center-offset-pixels',
-	}
 
     var briefing = {
       type: "html-keyboard-response",
@@ -155,10 +147,10 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, codes) {
 				prompt: '<p></p>',
 				extensions: [
 					{
-							type: 'webgazer',
-							params: {
-									targets: ['.jspsych-content-wrapper']
-							}
+						type: 'webgazer',
+						params: {
+							targets: [WEBGAZER_TARGET_CSS_ID]
+						}
 					}
 				],
 			},
@@ -185,18 +177,7 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, codes) {
 				require_movement: true
 			}
 		],
-		timeline_variables: [
-            { video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Pa','Ga','Ma'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Ga','Da','Ma'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryDaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Ga','Da'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualTa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Na','La'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Pa','Ga','Ba'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryNaVisualDa.mp4'], syllables: jsPsych.randomization.repeat(['Na','Da','Ka','Ma'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualPa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Ta','Ga','Ba'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualNa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Na','Ka','Ta'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryTaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ta','Ga','Ka','Da'],1) },
-			
-		],
+		timeline_variables: MCGURK_VARIABLES,
 		randomize_order: true,
 		repetitions: 1
 	}
@@ -218,10 +199,10 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, codes) {
 				prompt: '<p></p>',
 				extensions: [
 					{
-							type: 'webgazer',
-							params: {
-									targets: ['.jspsych-content-wrapper']
-							}
+						type: 'webgazer',
+						params: {
+							targets: [WEBGAZER_TARGET_CSS_ID]
+						}
 					}
 				],
 				
@@ -249,18 +230,7 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, codes) {
 				require_movement: true
 			}
 		],
-		timeline_variables: [
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Pa','Ga','Ma'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Ga','Da','Ma'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryDaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Ga','Da'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualTa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Na','La'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Pa','Ga','Ba'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryNaVisualDa.mp4'], syllables: jsPsych.randomization.repeat(['Na','Da','Ka','Ma'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualPa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Ta','Ga','Ba'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualNa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Na','Ka','Ta'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryTaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ta','Ga','Ka','Da'],1) },
-			
-		],
+		timeline_variables: MCGURK_VARIABLES,
 		randomize_order: true,
     	repetitions: 5
 	}
@@ -282,10 +252,10 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, codes) {
 				prompt: '<p></p>',
 				extensions: [
 					{
-							type: 'webgazer',
-							params: {
-									targets: ['.jspsych-content-wrapper']
-							}
+						type: 'webgazer',
+						params: {
+							targets: [WEBGAZER_TARGET_CSS_ID]
+						}
 					}
 				],
 				
@@ -313,18 +283,7 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, codes) {
 				require_movement: true
 			}
 		],
-		timeline_variables: [
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Pa','Ga','Ma'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Ga','Da','Ma'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryDaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Ga','Da'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualTa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Na','La'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Pa','Ga','Ba'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryNaVisualDa.mp4'], syllables: jsPsych.randomization.repeat(['Na','Da','Ka','Ma'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualPa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Ta','Ga','Ba'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualNa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Na','Ka','Ta'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryTaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ta','Ga','Ka','Da'],1) },
-			
-		],
+		timeline_variables: MCGURK_VARIABLES,
 		randomize_order: true,
     	repetitions: 5
 	}
@@ -346,10 +305,10 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, codes) {
 				prompt: '<p></p>',
 				extensions: [
 					{
-							type: 'webgazer',
-							params: {
-									targets: ['.jspsych-content-wrapper']
-							}
+						type: 'webgazer',
+						params: {
+							targets: [WEBGAZER_TARGET_CSS_ID]
+						}
 					}
 				],
 				
@@ -377,18 +336,7 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, codes) {
 				require_movement: true
 			}
 		],
-		timeline_variables: [
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Pa','Ga','Ma'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Ga','Da','Ma'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryDaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Ga','Da'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualTa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Na','La'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Pa','Ga','Ba'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryNaVisualDa.mp4'], syllables: jsPsych.randomization.repeat(['Na','Da','Ka','Ma'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualPa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Ta','Ga','Ba'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualNa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Na','Ka','Ta'],1) },
-			{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryTaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ta','Ga','Ka','Da'],1) },
-			
-		],
+		timeline_variables: MCGURK_VARIABLES,
 		randomize_order: true,
     	repetitions: 5
 	}
@@ -411,7 +359,6 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, codes) {
 			welcome,
 			trial,
 			instructions,
-			cameraWarning,
 			cameraInit,
 			briefing,
 			sex,
@@ -421,31 +368,29 @@ function ExampleExperiment(jsSheetHandle, jsPsychHandle, codes) {
 			mcGurkProcedure1,
 			ending,
 			chinrest,
-			cameraCalibrateInstructions, cameraCalibrate, cameraValidationInstructions, cameraValidation,
+			calibrationSession,
 			mcGurkProcedure2,
 			rest,
 			chinrest,
-			cameraCalibrateInstructions, cameraCalibrate, cameraValidationInstructions, cameraValidation,
+			calibrationSession,
 			mcGurkProcedure3,
 			rest2,
 			chinrest,
-			cameraCalibrateInstructions, cameraCalibrate, cameraValidationInstructions, cameraValidation,
+			calibrationSession,
 			mcGurkProcedure4,
 			goodbye
 		],
 		show_progress_bar: true,
-		on_trial_finish: session.insert,
-		on_finish: function() {
-			window.top.location.href = 'https://www.prolific.co/' 
-		},
-		extensions: [
-			{
-				type: 'webgazer', 
-				params: {
-					sampling_interval: 100,
-				}
+		on_trial_finish: function(data) {
+			if (data.webgazer_data?.length) {
+				session.processWebgazerData(data, WEBGAZER_TARGET_CSS_ID);
 			}
-		]
+			session.insert(data);
+		},
+		on_finish: function() {
+			window.top.location.href = 'https://www.prolific.co/'
+		},
+		extensions: [{ type: 'webgazer' }]
 	});
     }
 }
