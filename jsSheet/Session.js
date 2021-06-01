@@ -9,8 +9,10 @@ class SessionBuilder {
   }
 
   createGoogleSession(onSuccess = console.log, onFailure = console.error) {
+    const sessionInsert = this.insert;
+    const sessionProcessWebgazerData = this.processWebgazerData;
     this.getSessionId(function(id) {
-      onSuccess(new Session(id, this.insert, this.processWebgazerData))
+      onSuccess(new Session(id, sessionInsert, sessionProcessWebgazerData))
     }, onFailure);
   }
 
@@ -27,11 +29,11 @@ class SessionBuilder {
     google.script.run.withFailureHandler(onFailure).withSuccessHandler(onSuccess).GetSessionID()
   }
 
-  insert(id, data, onSuccess, onFailure) {
+  insert = (id, data, onSuccess, onFailure) => {
     google.script.run.withFailureHandler(onFailure).withSuccessHandler(onSuccess).Insert(id, data)
   }
 
-  processWebgazerData(data, target) {
+  processWebgazerData = (data, target) => {
     let accumulator = {
       x: 0,
       y: 0,
