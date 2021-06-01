@@ -9,8 +9,8 @@ class SessionBuilder {
   }
 
   createGoogleSession(onSuccess = console.log, onFailure = console.error) {
-    this.#getSessionId(function(id) {
-      onSuccess(new Session(id, this.#insert, this.#processWebgazerData))
+    this.getSessionId(function(id) {
+      onSuccess(new Session(id, this.insert, this.processWebgazerData))
     }, onFailure);
   }
 
@@ -20,18 +20,18 @@ class SessionBuilder {
     const debugInsertFunction = (data) => {
       console.log(JSON.parse(JSON.stringify(data)));
     }
-    onSuccess(new Session(debugSessionId, debugInsertFunction, this.#processWebgazerData));
+    onSuccess(new Session(debugSessionId, debugInsertFunction, this.processWebgazerData));
   }
 
-  #getSessionId(onSuccess, onFailure) {
+  getSessionId(onSuccess, onFailure) {
     google.script.run.withFailureHandler(onFailure).withSuccessHandler(onSuccess).GetSessionID()
   }
 
-  #insert = (id, data, onSuccess, onFailure) => {
+  insert = (id, data, onSuccess, onFailure) => {
     google.script.run.withFailureHandler(onFailure).withSuccessHandler(onSuccess).Insert(id, data)
   }
 
-  #processWebgazerData = (data, target) => {
+  processWebgazerData = (data, target) => {
     let accumulator = {
       x: 0,
       y: 0,
