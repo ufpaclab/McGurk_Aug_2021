@@ -1,8 +1,9 @@
 function doGet(e) {
+
   var template = HtmlService.createTemplateFromFile('index')
-  template.PROLIFIC_PID = e.parameter.PROLIFIC_PID ?? -1;
-  template.STUDY_ID = e.parameter.STUDY_ID ?? -1;
-  template.SESSION_ID = e.parameter.SESSION_ID ?? -1;
+  template.PROLIFIC_PID = e.parameter.PROLIFIC_PID;
+  template.STUDY_ID = e.parameter.STUDY_ID;
+  template.SESSION_ID = e.parameter.SESSION_ID;
   return template.evaluate()
 }
 

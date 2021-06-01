@@ -1,4 +1,4 @@
-function ExampleExperiment(jsPsychHandle, codes) {
+function ExampleExperiment(jsPsychHandle, experimentCodes) {
 	const MCGURK_VARIABLES = [
 		{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Pa','Ga','Ma'], 1) },
 		{ video: ['https://victoria0527.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Ga','Da','Ma'], 1) },
@@ -24,6 +24,8 @@ function ExampleExperiment(jsPsychHandle, codes) {
 	jsPsych.data.addProperties({
   		subject: subject_id,
 	});
+
+	jsPsych.data.addProperties(experimentCodes);
 
 	/* define welcome message trial */	
 	var welcome = {
