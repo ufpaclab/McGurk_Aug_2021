@@ -27,11 +27,11 @@ class SessionBuilder {
     google.script.run.withFailureHandler(onFailure).withSuccessHandler(onSuccess).GetSessionID()
   }
 
-  insert = (id, data, onSuccess, onFailure) => {
+  insert(id, data, onSuccess, onFailure) {
     google.script.run.withFailureHandler(onFailure).withSuccessHandler(onSuccess).Insert(id, data)
   }
 
-  processWebgazerData = (data, target) => {
+  processWebgazerData(data, target) {
     let accumulator = {
       x: 0,
       y: 0,
