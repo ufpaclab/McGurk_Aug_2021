@@ -30,7 +30,7 @@ function ExampleExperiment(jsPsychHandle, experimentCodes) {
 	/* define welcome message trial */	
 	var welcome = {
   		type: "html-keyboard-response",
-  		stimulus: "Welcome to the experiment. Press any key to begin."
+  		stimulus: "<p>Welcome to the experiment.</p><p>Press any key to begin.</p>"
 	};
 
     // declare the block.
@@ -43,7 +43,7 @@ function ExampleExperiment(jsPsychHandle, experimentCodes) {
   	var instructions = {
 		type: 'image-keyboard-response',
         stimulus: ['https://victoria0527.github.io/jsPsychSheet/experiment/armsLength.png'],
-		prompt: "<p> </p><p>Please sit roughly an arm’s length away from the screen as seen in the image. Please maintain eye contact with the screen while each video is being presented. Press any key to continue.</p>"
+		prompt: "<p> </p><p>Please sit roughly an arm’s length away from the screen as seen in the image. Please maintain eye contact with the screen while each video is being presented. </p><p>Press any key to continue.</p>"
 	};
 
 	const cameraInit = {

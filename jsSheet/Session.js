@@ -59,11 +59,9 @@ class SessionBuilder {
       averageX: accumulator.x / accumulator.count,
       averageY: accumulator.y / accumulator.count 
     };
-    data.fixationAttributes = data.webgazer_targets[target];
+    data.fixationAttributes = data.webgazer_targets[target].value;
     delete data.webgazer_data;
     delete data.webgazer_targets;
-
-    console.log(data);
   }
 }
 
