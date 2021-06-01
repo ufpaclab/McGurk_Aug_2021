@@ -65,7 +65,9 @@ class Session {
 
   constructor(id, insert, processWebgazerData) {
     this.id = id;
-    this.insert = insert;
+    this.insert = data => {
+      insert(id, data);
+    }
     this.processWebgazerData = processWebgazerData;
   }
 }
