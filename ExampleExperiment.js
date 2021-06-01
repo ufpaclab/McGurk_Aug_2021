@@ -384,9 +384,7 @@ function ExampleExperiment(jsPsychHandle, experimentCodes) {
 		],
 		show_progress_bar: true,
 		on_trial_finish: function(data) {
-			if (data.webgazer_data?.length) {
-				session.processWebgazerData(data, WEBGAZER_TARGET_CSS_ID);
-			}
+			session.processWebgazerData(data, WEBGAZER_TARGET_CSS_ID);
 			session.insert(data);
 		},
 		on_finish: function() {

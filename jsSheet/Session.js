@@ -34,6 +34,15 @@ class SessionBuilder {
   }
 
   processWebgazerData = (data, target) => {
+    if (!data.webgazer_data) {
+      return;
+    }
+    if (!data.webgazer_data.length) {
+      delete data.webgazer_data;
+      delete data.webgazer_targets;
+      return;
+    }
+
     let accumulator = {
       x: 0,
       y: 0,
