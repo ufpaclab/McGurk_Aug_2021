@@ -345,7 +345,7 @@ function ExampleExperiment(jsPsychHandle, experimentCodes) {
 
     var goodbye = {
 		type: "html-keyboard-response",
-		stimulus: "Congratulations, the experiment is now over. Please do not close your window until it says that the data has finished uploading on the next screen, and check SONA when you are done!  If you DIDN'T receive credit after pushing the right arrow, please contact us at victoriacardenas@ufl.edu."
+		stimulus: "<p>Congratulations, the experiment is now over. If you have any issues, please feel free to contact us at the contacts listed in prolific or the consent form.</p><p>Press the right arrow button to finish the study.</p>"
 	};
 	
 	let chinrest = {
@@ -388,7 +388,7 @@ function ExampleExperiment(jsPsychHandle, experimentCodes) {
 			session.insert(data);
 		},
 		on_finish: function() {
-			window.top.location.href = 'https://www.prolific.co/'
+			window.top.location.href = 'https://app.prolific.co/submissions/complete?cc=418C16E5'
 		},
 		extensions: [{ type: 'webgazer' }]
 	});
