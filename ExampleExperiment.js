@@ -386,6 +386,7 @@ function ExampleExperiment(jsPsychHandle, experimentCodes) {
 		show_progress_bar: true,
 		on_trial_finish: function(data) {
 			session.processWebgazerData(data, WEBGAZER_TARGET_CSS_ID);
+			session.processValidationData(data);
 			session.insert(data);
 		},
 		on_finish: function() {
@@ -393,5 +394,14 @@ function ExampleExperiment(jsPsychHandle, experimentCodes) {
 		},
 		extensions: [{ type: 'webgazer' }]
 	});
+    }
+
+	function WebGazerExtension(sampleRate) {
+        return {
+            type: 'webgazer', 
+            params: {
+                sampling_interval: sampleRate,
+            }
+        }
     }
 }
