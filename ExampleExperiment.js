@@ -30,7 +30,10 @@ function ExampleExperiment(jsPsychHandle, experimentCodes) {
 	/* define welcome message trial */	
 	var welcome = {
   		type: "html-keyboard-response",
-  		stimulus: "<p>Welcome to the experiment.</p><p>Press any key to begin.</p>"
+  		stimulus: "<p>Welcome to the experiment.</p>" +
+		"<p>Please read all instructions and proceed as quickly and accurately as possible during the task</p>" +
+		"<b>Refreshing will bring you back to the start. Do not refresh unless you know you want to restart.</b>" +
+		"<p>Press any key to begin.</p>"
 	};
 
     // declare the block.
