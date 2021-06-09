@@ -131,7 +131,9 @@ function ExampleExperiment(jsPsychHandle, experimentCodes) {
 
 	var directions = {
   		type: "html-keyboard-response",
-  		stimulus: "You will now be shown test videos to get you used to the experimental procedures. Press any key to continue."
+  		stimulus: "<p>You will now be shown test videos to get you used to the experimental procedures.</p>" +
+		"<p>From now on, please proceed as quickly and as accurately as possible</p>" +
+		"<p>Press any key to continue.</p>"
 	};
     
     /* Present a randomized order of all of the videos/trials you wish to show */
