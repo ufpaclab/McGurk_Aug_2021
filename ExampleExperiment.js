@@ -145,8 +145,10 @@ function ExampleExperiment(jsPsychHandle, experimentCodes) {
 
 	var directions = {
   		type: "html-keyboard-response",
-  		stimulus: "<p>You will now be shown test videos to get you used to the experimental procedures.</p>" +
-		"<p>From now on, please proceed as quickly and as accurately as possible</p>" +
+  		stimulus: "<p>You will now be shown practice videos to get you used to the experimental procedures.</p>" +
+		"<p>Your task will be to first report the syllable you perceived,</p>" +
+		"<p>and then to make a judgment about whether what you SAW and HEARD was the same, or different.</p>" +
+		"<p>From now on, please proceed as QUICKLY and as ACCURATELY as possible</p>" +
 		"<p>Press any key to continue.</p>"
 	};
     
@@ -187,15 +189,15 @@ function ExampleExperiment(jsPsychHandle, experimentCodes) {
 			},
 			{
 				type: 'html-slider-response',
-				stimulus: '<p>How confident are you in your answer?</p>',
-				labels: ['0','25','50','75','100'],
-				min: 0,
-				max: 100,
+				stimulus: '<p>Were the auditory and visual syllables the SAME, or DIFFERENT?</p>',
+				labels: ['Same','','Not Sure','','Different'],
+				min: 1,
+				max: 9,
 				start: function(){
-					return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
+					return jsPsych.randomization.sampleWithoutReplacement([1, 2, 3, 4, 5, 6, 7, 8, 9], 1)[0];
 					},
 				step: 1,
-				prompt: "<p>Rate confidence from 0 (no confidence) to 100 (fully confident)</p>",
+				prompt: "<p>Provide any rating from 1 (definitely same) to 9 (definitely different)</p>",
 				require_movement: true
 			}
 		],
@@ -206,7 +208,7 @@ function ExampleExperiment(jsPsychHandle, experimentCodes) {
     
     var ending = {
 		type: "html-keyboard-response",
-		stimulus: "Great job on the pretrials! Please get ready for the real experiment to begin. The experiment will take just under 30 minutes. You will be given a break between each segment. Press any key to continue."
+		stimulus: "Great job on the practice trials! Please get ready for the real experiment to begin. The experiment will take approximately 30 minutes. You will be given a break between each segment. Press any key to continue."
 	};
     
 	var mcGurkProcedure2 = {
@@ -240,15 +242,15 @@ function ExampleExperiment(jsPsychHandle, experimentCodes) {
 			},
 			{
 				type: 'html-slider-response',
-				stimulus: '<p>How confident are you in your answer?</p>',
-				labels: ['0','25','50','75','100'],
-				min: 0,
-				max: 100,
+				stimulus: '<p>Were the auditory and visual syllables the SAME, or DIFFERENT?</p>',
+				labels: ['Same','','Not Sure','','Different'],
+				min: 1,
+				max: 9,
 				start: function(){
-					return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
+					return jsPsych.randomization.sampleWithoutReplacement([1, 2, 3, 4, 5, 6, 7, 8, 9], 1)[0];
 					},
 				step: 1,
-				prompt: "<p>Rate confidence from 0 (no confidence) to 100 (fully confident)</p>",
+				prompt: "<p>Provide any rating from 1 (definitely same) to 9 (definitely different)</p>",
 				require_movement: true
 			}
 		],
@@ -293,15 +295,15 @@ function ExampleExperiment(jsPsychHandle, experimentCodes) {
 			},
 			{
 				type: 'html-slider-response',
-				stimulus: '<p>How confident are you in your answer?</p>',
-				labels: ['0','25','50','75','100'],
-				min: 0,
-				max: 100,
+				stimulus: '<p>Were the auditory and visual syllables the SAME, or DIFFERENT?</p>',
+				labels: ['Same','','Not Sure','','Different'],
+				min: 1,
+				max: 9,
 				start: function(){
-					return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
+					return jsPsych.randomization.sampleWithoutReplacement([1, 2, 3, 4, 5, 6, 7, 8, 9], 1)[0];
 					},
 				step: 1,
-				prompt: "<p>Rate confidence from 0 (no confidence) to 100 (fully confident)</p>",
+				prompt: "<p>Provide any rating from 1 (definitely same) to 9 (definitely different)</p>",
 				require_movement: true
 			}
 		],
@@ -346,15 +348,15 @@ function ExampleExperiment(jsPsychHandle, experimentCodes) {
 			},
 			{
 				type: 'html-slider-response',
-				stimulus: '<p>How confident are you in your answer?</p>',
-				labels: ['0','25','50','75','100'],
-				min: 0,
-				max: 100,
+				stimulus: '<p>Were the auditory and visual syllables the SAME, or DIFFERENT?</p>',
+				labels: ['Same','','Not Sure','','Different'],
+				min: 1,
+				max: 9,
 				start: function(){
-					return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
+					return jsPsych.randomization.sampleWithoutReplacement([1, 2, 3, 4, 5, 6, 7, 8, 9], 1)[0];
 					},
 				step: 1,
-				prompt: "<p>Rate confidence from 0 (no confidence) to 100 (fully confident)</p>",
+				prompt: "<p>Provide any rating from 1 (definitely same) to 9 (definitely different)</p>",
 				require_movement: true
 			}
 		],
@@ -409,7 +411,7 @@ function ExampleExperiment(jsPsychHandle, experimentCodes) {
 			session.insert(data);
 		},
 		on_finish: function() {
-			window.top.location.href = 'https://app.prolific.co/submissions/complete?cc=18348384'
+			window.top.location.href = 'https://app.prolific.co/submissions/complete?cc=418C16E5'
 		},
 		extensions: [{ type: 'webgazer' }]
 	});
