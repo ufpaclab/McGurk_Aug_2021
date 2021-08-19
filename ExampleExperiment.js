@@ -409,7 +409,7 @@ function ExampleExperiment(jsPsychHandle, experimentCodes) {
 			session.insert(data);
 		},
 		on_finish: function() {
-			window.top.location.href = 'https://app.prolific.co/submissions/complete?cc=418C16E5'
+			window.top.location.href = 'https://app.prolific.co/submissions/complete?cc=18348384'
 		},
 		extensions: [{ type: 'webgazer' }]
 	});
