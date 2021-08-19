@@ -190,14 +190,14 @@ function ExampleExperiment(jsPsychHandle, experimentCodes) {
 			{
 				type: 'html-slider-response',
 				stimulus: '<p>Were the auditory and visual syllables the SAME, or DIFFERENT?</p>',
-				labels: ['Same','','Not Sure','','Different'],
+				labels: ['1','2','3','4','5','6','7','8','9'],
 				min: 1,
 				max: 9,
 				start: function(){
 					return jsPsych.randomization.sampleWithoutReplacement([1, 2, 3, 4, 5, 6, 7, 8, 9], 1)[0];
 					},
 				step: 1,
-				prompt: "<p>Provide any rating from 1 (definitely same) to 9 (definitely different)</p>",
+				prompt: "<p>1=Definitely Same, 5=Not Sure, 9=Definitely different</p>",
 				require_movement: true
 			}
 		],
@@ -243,14 +243,14 @@ function ExampleExperiment(jsPsychHandle, experimentCodes) {
 			{
 				type: 'html-slider-response',
 				stimulus: '<p>Were the auditory and visual syllables the SAME, or DIFFERENT?</p>',
-				labels: ['Same','','Not Sure','','Different'],
+				labels: ['1','2','3','4','5','6','7','8','9'],
 				min: 1,
 				max: 9,
 				start: function(){
 					return jsPsych.randomization.sampleWithoutReplacement([1, 2, 3, 4, 5, 6, 7, 8, 9], 1)[0];
 					},
 				step: 1,
-				prompt: "<p>Provide any rating from 1 (definitely same) to 9 (definitely different)</p>",
+				prompt: "<p>1=Definitely Same, 5=Not Sure, 9=Definitely different</p>",
 				require_movement: true
 			}
 		],
@@ -296,14 +296,14 @@ function ExampleExperiment(jsPsychHandle, experimentCodes) {
 			{
 				type: 'html-slider-response',
 				stimulus: '<p>Were the auditory and visual syllables the SAME, or DIFFERENT?</p>',
-				labels: ['Same','','Not Sure','','Different'],
+				labels: ['1','2','3','4','5','6','7','8','9'],
 				min: 1,
 				max: 9,
 				start: function(){
 					return jsPsych.randomization.sampleWithoutReplacement([1, 2, 3, 4, 5, 6, 7, 8, 9], 1)[0];
 					},
 				step: 1,
-				prompt: "<p>Provide any rating from 1 (definitely same) to 9 (definitely different)</p>",
+				prompt: "<p>1=Definitely Same, 5=Not Sure, 9=Definitely different</p>",
 				require_movement: true
 			}
 		],
@@ -349,14 +349,14 @@ function ExampleExperiment(jsPsychHandle, experimentCodes) {
 			{
 				type: 'html-slider-response',
 				stimulus: '<p>Were the auditory and visual syllables the SAME, or DIFFERENT?</p>',
-				labels: ['Same','','Not Sure','','Different'],
+				labels: ['1','2','3','4','5','6','7','8','9'],
 				min: 1,
 				max: 9,
 				start: function(){
 					return jsPsych.randomization.sampleWithoutReplacement([1, 2, 3, 4, 5, 6, 7, 8, 9], 1)[0];
 					},
 				step: 1,
-				prompt: "<p>Provide any rating from 1 (definitely same) to 9 (definitely different)</p>",
+				prompt: "<p>1=Definitely Same, 5=Not Sure, 9=Definitely different</p>",
 				require_movement: true
 			}
 		],
